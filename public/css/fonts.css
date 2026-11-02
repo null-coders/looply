@@ -1,0 +1,10 @@
+/* Fonts are served from this computer (installed with npm), so the app
+   looks right even without internet. Baloo 2 and Mukta by Ek Type (SIL OFL). */
+@import url('/fonts/baloo-2/500.css');
+@import url('/fonts/baloo-2/600.css');
+@import url('/fonts/baloo-2/700.css');
+@import url('/fonts/baloo-2/800.css');
+@import url('/fonts/mukta/400.css');
+@import url('/fonts/mukta/500.css');
+@import url('/fonts/mukta/600.css');
+@import url('/fonts/mukta/700.css');

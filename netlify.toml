@@ -1,0 +1,50 @@
+# Netlify settings for Looply.
+# Pages come from public/, the API runs as one function (netlify/functions/api.js)
+# and talks to Supabase through the DATABASE_URL environment variable.
+
+[build]
+  command = "npm run build"
+  publish = "public"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+  # These packages are copied as normal packages instead of being bundled,
+  # as Netlify's Express guide recommends (they load Node built-ins in ways
+  # a bundle cannot copy; pg also has an optional native part).
+  external_node_modules = ["express", "serverless-http", "pg", "qrcode"]
+
+# Every API call goes to the function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# Customer card and join links are single pages that read the code from the address
+[[redirects]]
+  from = "/card/*"
+  to = "/card.html"
+  status = 200
+
+[[redirects]]
+  from = "/join/*"
+  to = "/join.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "same-origin"
+    Permissions-Policy = "camera=(self), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

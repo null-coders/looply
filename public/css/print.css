@@ -1,0 +1,94 @@
+/* Printable card and counter poster. Only the .sheet prints. */
+body { background: #e9ebf2; }
+.print-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.print-bar p { color: var(--muted); font-size: 15px; }
+.sheet {
+  margin: 24px auto;
+  background: #fff;
+  width: 210mm;
+  max-width: calc(100vw - 32px);
+  padding: 14mm;
+  box-shadow: 0 10px 30px rgba(27, 33, 64, 0.12);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+@media print {
+  @page { size: A4; margin: 10mm; }
+  body { background: #fff; }
+  .print-bar { display: none; }
+  .sheet { margin: 0; padding: 0; box-shadow: none; width: auto; max-width: none; }
+}
+
+/* ---------- loyalty card, credit-card size */
+.card-pair { display: flex; gap: 10mm; flex-wrap: wrap; }
+.pcard {
+  width: 85.6mm;
+  height: 54mm;
+  border-radius: 3.5mm;
+  position: relative;
+  overflow: hidden;
+  border: 0.3mm dashed #b8bccb; /* cut line */
+}
+.pcard-front { background: var(--ink); color: #fff; padding: 5mm 5.5mm; display: flex; flex-direction: column; }
+.pcard-front .shop { font-family: var(--font-display); font-weight: 800; font-size: 5.2mm; line-height: 1.1; max-width: 58mm; }
+.pcard-front .kind { color: var(--marigold); font-size: 3mm; font-weight: 600; margin-top: 0.8mm; }
+.pcard-front .who { margin-top: auto; }
+.pcard-front .name { font-family: var(--font-display); font-weight: 700; font-size: 4.4mm; line-height: 1.1; }
+.pcard-front .code { font-family: var(--font-display); font-size: 3.6mm; letter-spacing: 0.06em; color: #c6cadb; }
+.pcard-front .ring {
+  position: absolute;
+  right: -9mm;
+  top: -9mm;
+  width: 34mm;
+  height: 34mm;
+  border-radius: 50%;
+  border: 2.2mm solid var(--marigold);
+  opacity: 0.95;
+}
+.pcard-front .ring::after {
+  content: '';
+  position: absolute;
+  inset: 2.6mm;
+  border-radius: 50%;
+  border: 0.5mm solid var(--marigold);
+}
+.pcard-front .brand-small { position: absolute; right: 5mm; bottom: 4.5mm; font-size: 2.6mm; color: #9aa0b8; }
+.pcard-back { background: #fff; color: var(--ink); padding: 4.5mm 5mm; display: grid; grid-template-columns: 30mm 1fr; gap: 4mm; align-items: center; }
+.pcard-back img { width: 30mm; height: 30mm; }
+.pcard-back .scan { font-weight: 700; font-size: 3.3mm; line-height: 1.25; }
+.pcard-back ul { list-style: none; padding: 0; margin: 2mm 0 0; font-size: 2.8mm; line-height: 1.45; color: var(--ink-2); }
+.pcard-back .code-line { font-size: 2.7mm; color: var(--muted); margin-top: 1.5mm; }
+.print-help { margin-top: 8mm; font-size: 3.4mm; color: var(--muted); }
+
+/* ---------- counter poster (A5 area on an A4 page) */
+.poster {
+  width: 148mm;
+  min-height: 200mm;
+  margin: 0 auto;
+  border: 0.3mm dashed #b8bccb;
+  border-radius: 6mm;
+  padding: 12mm 12mm 10mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.poster .shop { font-family: var(--font-display); font-weight: 800; font-size: 9mm; line-height: 1.05; }
+.poster h1 { font-size: 12mm; line-height: 1.02; margin-top: 6mm; color: var(--violet); max-width: 120mm; }
+.poster .qr-wrap { margin-top: 7mm; padding: 4mm; border: 1.2mm solid var(--ink); border-radius: 5mm; }
+.poster .qr-wrap img { width: 62mm; height: 62mm; }
+.poster .scan { margin-top: 4mm; font-weight: 700; font-size: 5mm; }
+.poster .perks { margin-top: 7mm; width: 100%; border-top: 0.6mm dashed var(--line-strong); padding-top: 5mm; display: grid; gap: 2.2mm; font-size: 4.4mm; }
+.poster .perks strong { font-family: var(--font-display); color: var(--ink); }
+.poster .foot { margin-top: auto; padding-top: 6mm; font-size: 3.2mm; color: var(--muted); }
